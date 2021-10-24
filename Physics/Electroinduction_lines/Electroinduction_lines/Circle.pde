@@ -1,10 +1,10 @@
-class Circle implements Wire {
+class Circle implements Shape {
   private PVector a, b, c;
   private float r;
   
   Circle(PVector start, PVector end, float r) {
     PVector v = end.sub(start).normalize();
-    if(v.dot(1,0,0) != 1) {
+    if(v.dot(1,0,0) == 1) {
       this.a = v.cross(new PVector(1, 0, 0)).normalize();
     } else {
       this.a = v.cross(new PVector(0, 1, 0)).normalize();
@@ -16,13 +16,16 @@ class Circle implements Wire {
   }
   
   void draw_shape() {
-    double t = 0;
-    double step = 0.01;
+    float t = 0;
+    float step = 0.01;
     PVector p = null;
+    
+    strokeWeight(1.5/ScaleCoef);
     noFill();
     beginShape();
     while (t < 1) {
-      p = get_point((float) t);
+      stroke(map(t, 0,1,240,360), 1, 1);
+      p = get_point(t);
       //println(p, t);
       vertex(p.x, p.y, p.z);
       t += step;

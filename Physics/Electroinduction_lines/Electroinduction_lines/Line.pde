@@ -1,4 +1,4 @@
-class Line implements Wire {
+class Line implements Shape {
   PVector start;
   PVector end;
   
@@ -8,8 +8,21 @@ class Line implements Wire {
   }
   
   void draw_shape() {
-    stroke(255);
-    line(start.x, start.y, start.z, end.x, end.y, end.z);
+    float t = 0;
+    float step = 0.01;
+    PVector p = null;
+    
+    strokeWeight(1.5/ScaleCoef);
+    noFill();
+    beginShape();
+    while (t < 1) {
+      stroke(map(t, 0,1,240,360), 1, 1);
+      p = get_point(t);
+      //println(p, t);
+      vertex(p.x, p.y, p.z);
+      t += step;
+    }
+    endShape();
   }
   
   PVector get_point(float t) {

@@ -1,4 +1,4 @@
-class Spiral implements Wire {
+class Spiral implements Shape {
   private PVector start, end, a, b;
   private float r, turns;
   
@@ -9,8 +9,8 @@ class Spiral implements Wire {
     this.r = r;
     this.turns = turns;
     
-    PVector v = end.sub(start).normalize();
-    if(v.dot(1,0,0) != 1) {
+    PVector v = PVector.sub(end, start).normalize();
+    if(v.dot(1,0,0) == 1) {
       this.a = v.cross(new PVector(1, 0, 0)).normalize();
     } else {
       this.a = v.cross(new PVector(0, 1, 0)).normalize();
@@ -19,16 +19,19 @@ class Spiral implements Wire {
   }
   
   void draw_shape() {
-    double t = 0.0;
-    double step = 0.001;
+    float t = 0.0;
+    float step = 0.001;
     PVector p = null;
+    
+    strokeWeight(1/ScaleCoef);
+    
     noFill();
     beginShape();
     while(t <= 1) {
+      stroke(map(t, 0,1,240,360), 1, 1);
       p = get_point((float) t);
       //println(p, t);
       vertex(p.x, p.y, p.z);
-      t += step;
       t += step;
     }
     endShape();
