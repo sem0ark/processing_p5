@@ -68,4 +68,5 @@ void draw() {
   }
   endShape();
   //println(x, y, z);
+  println(points.size());
 }
